@@ -1,8 +1,11 @@
 package com.example.school.controller;
 
-import com.example.school.controller.request.TeacherCreationRequest;
+import com.example.school.controller.request.ClassCreationRequest;
 import com.example.school.controller.request.TeacherClassResponseReturn;
+import com.example.school.controller.request.TeacherCreationRequest;
 import com.example.school.controller.request.TeacherResponseReturn;
+import com.example.school.controller.response.ClassResponseReturn;
+import com.example.school.model.Class;
 import com.example.school.model.Teacher;
 import com.example.school.service.TeacherService;
 import org.springframework.web.bind.annotation.*;
@@ -38,25 +41,18 @@ public class TeacherController {
     @GetMapping("/teachers/{id}")
     public TeacherClassResponseReturn getTeacherById(@PathVariable(value = "id") Long id) {
         Teacher teacher = teacherService.findById(id);
-        return new TeacherClassResponseReturn(
-                teacher.getId(),
-                teacher.getName(),
-                teacher.getAge(),
-                teacher.getClasse().getId(),
-                teacher.getClasse().getName());
+        List<ClassResponseReturn> classResps = new ArrayList<>();
+        TeacherClassResponseReturn teacherClassResp = new TeacherClassResponseReturn(teacher.getId()
+                , teacher.getName(), teacher.getSubject(), teacher.getAge(), classResps);
+        for (Class classe : teacher.getClasses()) {
+            ClassResponseReturn classResp = new ClassResponseReturn(
+                    classe.getId(),
+                    classe.getName(),
+                    classe.getCapacity());
+            teacherClassResp.getClassResponses().add(classResp);
+        }
+        return teacherClassResp;
     }
-
-    //igual ao de cima
-  /*  @GetMapping("/teachers/{name}")
-    public TeacherClassResponseReturn getTeacherByName(@PathVariable String name) {
-        Teacher teacher = teacherService.findByName(name);
-        return new TeacherClassResponseReturn(
-                teacher.getId(),
-                teacher.getName(),
-                teacher.getAge(),
-                teacher.getClasse().getId(),
-                teacher.getClasse().getName());
-    }*/
 
     //Create a teacher
     @PostMapping(value = "/teachers", consumes = "application/json", produces = "application/json")
@@ -76,6 +72,32 @@ public class TeacherController {
         return teacherResp;
     }
 
+    //add classes to a teacher
+    @PostMapping(value = "/teacher/{id}/results")
+    public TeacherClassResponseReturn insertClassOnTeacher(@RequestBody List<ClassCreationRequest> classReqs, Long id) {
+        List<Class> classes = new ArrayList<>();
+        for (ClassCreationRequest classReq : classReqs) {
+            classes.add(Class
+                    .builder()
+                    .name(classReq.getName())
+                    .capacity(classReq.getCapacity())
+                    .build());
+        }
+        Teacher teacher = teacherService.addClass(classes, id);
+        List<ClassResponseReturn> classResps = new ArrayList<>();
+        TeacherClassResponseReturn teacherClassResp = new TeacherClassResponseReturn(teacher.getId()
+                , teacher.getName(), teacher.getSubject(), teacher.getAge(), classResps);
+        for (Class classe : teacher.getClasses()) {
+            ClassResponseReturn classResp = new ClassResponseReturn(
+                    classe.getId(),
+                    classe.getName(),
+                    classe.getCapacity());
+            teacherClassResp.getClassResponses().add(classResp);
+        }
+        return teacherClassResp;
+    }
+
+    //
     @PutMapping(value = "/teachers/{id}")
     public TeacherClassResponseReturn updateTeacher(@PathVariable(value = "id") Long id, @RequestBody TeacherCreationRequest teacherReq) {
         Teacher teacher = teacherService.update(teacherReq, id);

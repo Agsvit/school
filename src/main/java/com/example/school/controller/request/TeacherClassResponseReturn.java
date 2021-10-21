@@ -1,6 +1,9 @@
 package com.example.school.controller.request;
 
+import com.example.school.controller.response.ClassResponseReturn;
 import lombok.*;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -13,6 +16,6 @@ public class TeacherClassResponseReturn {
     private String subject;
     private int age;
 
-//    private List<ClassResponseRequest> classResponses;
+    private List<ClassResponseReturn> classResponses;
 
 }
