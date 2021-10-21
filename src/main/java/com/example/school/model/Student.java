@@ -19,4 +19,7 @@ public class Student {
     private String name;
     private int age;
 
+    @ManyToOne
+    @JoinColumn(name = "class_id")
+    private Class classe;
 }
