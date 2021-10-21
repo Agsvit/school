@@ -8,7 +8,7 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 public class ClassCreationRequest {
-    private Long id;
+
     private String name;
     private int capacity;
 }

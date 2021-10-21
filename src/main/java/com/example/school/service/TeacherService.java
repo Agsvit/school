@@ -1,6 +1,7 @@
 package com.example.school.service;
 
 import com.example.school.controller.request.TeacherCreationRequest;
+import com.example.school.exception.TeacherNotFound;
 import com.example.school.model.Class;
 import com.example.school.model.Teacher;
 import com.example.school.repository.ClassRepository;
@@ -27,7 +28,7 @@ public class TeacherService {
 
     public Teacher findById(Long id) {
         //exception
-        return teacherRepository.findById(id).orElseThrow();
+        return teacherRepository.findById(id).orElseThrow(TeacherNotFound::new);
     }
 
     public Teacher save(Teacher newTeacher) {
@@ -48,8 +49,11 @@ public class TeacherService {
 
     public Teacher addClass(List<Class> classes, Long id) {
         Teacher teacher = this.findById(id);
+        List<Teacher> teachers = new ArrayList<>();
+        teachers.add(teacher);
         teacher.setClasses(classes);
         for (Class classe : classes) {
+            classe.setTeachers(teachers);
             classRepository.save(classe);
         }
         return teacher;

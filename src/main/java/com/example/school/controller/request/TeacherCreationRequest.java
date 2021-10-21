@@ -14,6 +14,6 @@ public class TeacherCreationRequest {
     private String name;
     private String subject;
     private int age;
-    private List<Long> classIds;
+//    private List<Long> classIds;
 
 }

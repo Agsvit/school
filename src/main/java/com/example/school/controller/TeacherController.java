@@ -1,9 +1,9 @@
 package com.example.school.controller;
 
 import com.example.school.controller.request.ClassCreationRequest;
-import com.example.school.controller.request.TeacherClassResponseReturn;
+import com.example.school.controller.response.TeacherClassResponseReturn;
 import com.example.school.controller.request.TeacherCreationRequest;
-import com.example.school.controller.request.TeacherResponseReturn;
+import com.example.school.controller.response.TeacherResponseReturn;
 import com.example.school.controller.response.ClassResponseReturn;
 import com.example.school.model.Class;
 import com.example.school.model.Teacher;
@@ -56,7 +56,7 @@ public class TeacherController {
 
     //Create a teacher
     @PostMapping(value = "/teachers", consumes = "application/json", produces = "application/json")
-    public TeacherClassResponseReturn createTeacher(@RequestBody TeacherCreationRequest teacherReq) {
+    public TeacherResponseReturn createTeacher(@RequestBody TeacherCreationRequest teacherReq) {
         Teacher newTeacher = Teacher
                 .builder()
                 .name(teacherReq.getName())
@@ -64,7 +64,7 @@ public class TeacherController {
                 .age(teacherReq.getAge())
                 .build();
         teacherService.save(newTeacher);
-        TeacherClassResponseReturn teacherResp = new TeacherClassResponseReturn();
+        TeacherResponseReturn teacherResp = new TeacherResponseReturn();
         teacherResp.setId(newTeacher.getId());
         teacherResp.setName(newTeacher.getName());
         teacherResp.setSubject(newTeacher.getSubject());

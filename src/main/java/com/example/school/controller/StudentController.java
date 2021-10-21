@@ -1,7 +1,7 @@
 package com.example.school.controller;
 
 import com.example.school.controller.request.StudentCreationRequest;
-import com.example.school.controller.request.StudentResponseReturn;
+import com.example.school.controller.response.StudentResponseReturn;
 import com.example.school.model.Student;
 import com.example.school.service.StudentService;
 import org.springframework.web.bind.annotation.*;

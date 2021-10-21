@@ -70,9 +70,9 @@ public class ClassController {
                 .build()
         );
         return new ClassResponseReturn(
-                classCreationRequest.getId(),
-                classCreationRequest.getName(),
-                classCreationRequest.getCapacity()
+                classe.getId(),
+                classe.getName(),
+                classe.getCapacity()
         );
     }
 }

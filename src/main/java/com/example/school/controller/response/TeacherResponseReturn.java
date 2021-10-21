@@ -1,4 +1,4 @@
-package com.example.school.controller.request;
+package com.example.school.controller.response;
 
 import lombok.*;
 
