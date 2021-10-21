@@ -22,5 +22,5 @@ public class Teacher {
     private int age;
 
     @ManyToMany(mappedBy = "teachers")
-    List<Class> classes = new ArrayList<>();
+    List<Class> classes = new ArrayList<Class>();
 }

@@ -20,12 +20,12 @@ public class Class {
     private int capacity;
 
     @OneToMany(mappedBy = "classe")
-    private List<Class> classes;
+    private List<Student> students;
 
     @ManyToMany
     @JoinTable(
             name = "teachers_class",
             joinColumns = @JoinColumn(name = "class_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "teacher_id", referencedColumnName = "id"))
-    List<Teacher> teachers = new ArrayList<>();
+    List<Teacher> teachers = new ArrayList<Teacher>();
 }
