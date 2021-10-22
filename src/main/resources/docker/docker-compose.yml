@@ -1,12 +1,10 @@
 version: '3.4'
 services:
   mysql:
-    hostname: mysql
     image: 'mysql:latest'
     ports:
-      - "5040:5040"
+      - "3307:3306"
     environment:
-      MYSQL_USER: root
-      MYSQL_PASSWORD: 1234
-      MYSQL_ROOT_PASSWORD: ndjchrfK.1
+      MYSQL_USER: user
+      MYSQL_PASSWORD: pass
       MYSQL_DATABASE: school
