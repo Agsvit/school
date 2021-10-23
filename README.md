@@ -19,7 +19,9 @@ if you're using intellij IDEA install docker plugin on it
 When oppening the project you need to run the project path in terminal 
 
 ``` docker-compose -f src\main\resources\docker\docker-compose.yml up ```
+<br>
 ``` docker ps ``` --> to check if u r in the right place 
+<br>
 and run the project
 ``` mvn spring-boot:run ```
 
